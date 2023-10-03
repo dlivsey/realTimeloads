@@ -1,0 +1,2 @@
+Site_name,Site_number,ADCP_elevation_above_bed_m,ADCP_elevation_above_gauge_datum_m,Distance_of_gauge_datum_below_thalweg_m,Start_date_and_time,End_date_and_time,Comment
+Burdekin River at Home Hill Inkerman Bridge,120001A,1.39,1.39,0,16-Feb-2000 0:00:00,16-Mar-2000 0:00:00,"Theoretical site information for ADCP at 120001A, Start and end date columns allow changes in ADCP elevation to be recorded with time"
