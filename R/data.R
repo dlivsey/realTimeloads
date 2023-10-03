@@ -1,0 +1,78 @@
+#' Example data used to demonstrate computation of real-time sediment loads from horizontal acoustic Doppler current profiler (hADCP)
+#'
+#' Synthetic dataset from modeled sediment transport and acoustic scattering detailed in Appendix B of the GUIDLINE. Following dataframes are provided in list
+#' @format ## `Site` , Site, site datum, and ADCP elevation information
+#' \describe{
+#'   \item{Site_name}{Site name (string)}
+#'   \item{Site_number}{Unique site code (string)}
+#'   \item{ADCP_elevation_above_bed_m}{Elevation of the ADCP above the bed (m)}
+#'   \item{ADCP_elevation_above_gauge_datum_m}{Elevation of the ADCP above local gauge datum (m)}
+#'   \item{Distance_of_gauge_datum_below_thalweg_m}{Distance from local gauge datum to lower point in cross-section (m)}
+#'   \item{Start_date_and_time}{Installation date of ADCP (time, POSIXct)}
+#'   \item{End_date_and_time}{Date if/when ADCP is moved vertically (time, POSIXct)}
+#'   \item{Comment}{User comment (string)}
+#'   }
+#' @format ## `ADCP` , ADCP readings except acoustic backscatter
+#' \describe{
+#'   \item{Site_number}{Unique site code (string)}
+#'   \item{time}{Date and time (time, POSIXct)}
+#'   \item{Ensemble}{Measurment ensemble number (integer)}
+#'   \item{Accoustic_Frequency_kHz}{Acoustic frequency of ADCP (kHz)}
+#'   \item{Transducer_radius_m}{Radius of ADCP transducer (m)}
+#'   \item{Beam_angle_degrees}{Angle of beam relative to normal (degrees)}
+#'   \item{Beam_aspect_ratio}{Ratio of beam radius to beam length (-)}
+#'   \item{Number_of_Cells}{Number of measurement cells along beam (integer)}
+#'   \item{Bin_Size_m}{Cell width measured normal to ADCP (m)}
+#'   \item{Blanking_distance_m}{Blanking distance measured normal to ADCP (m)}
+#'   \item{Instrument_serial_number}{Serial number of ADCP instrument (string)}
+#'   \item{CPU_serial_number}{Serial number of ADCP CPU (string)}
+#'   \item{Ambient_Noise_Level_Beam_1_Counts}{Ambient noise level for beam 1 (counts)}
+#'   \item{Ambient_Noise_Level_Beam_2_Counts}{Ambient noise level for beam 2 (counts)}
+#'   \item{Distance_to_Bin_1_mid_point_m}{Reported distance normal to ADCP to midpoint of bin/cell (m)}
+#'   \item{Speed_of_sound_m_per_s}{Speed of sound used by ADCP in the field (m/s)}
+#'   \item{Temperature_degC}{Temperature recorded by ADCP (degrees C)}
+#'   \item{Pressure_dbar}{Pressure recorded by ADCP (dBar)}
+#'   \item{Distance_to_surface_m}{Distance to water surface reported by vertical beam of ADCP (m)}
+#'   \item{Power_supply_voltage}{Power to ADCP (V)}
+#'   }
+#' @format ## `Echo_Intensity` , Acoustic backscatter measurements from ADCP
+#' \describe{
+#'   \item{Site_number}{Unique site code (string)}
+#'   \item{time}{Date and time (time, POSIXct)}
+#'   \item{Echo_Intensity_Counts_cell_n}{Acoustic backscatter in nth cell (counts)}
+#'   }
+#' @format ## `Sonde` , Conductivity, temperature, and depth from sonde
+#' \describe{
+#'   \item{time}{Date and time (time, POSIXct)}
+#'   \item{Water_Temperature_degC}{Temperature (degrees C)}
+#'   \item{Conductivity_uS_per_cm}{Conductivity (microS/cm)}
+#'   \item{Pressure_dbar}{Pressure (dbar)}
+#'   \item{Turbidity_FNU}{Turbidity (FNU)}
+#'   \item{Site_number}{Unique site code (string)}
+#'   }
+#'@format ## `Height` , River height in meters referenced to gauge datum
+#' \describe{
+#'   \item{time}{Date and time (time, POSIXct)}
+#'   \item{Height_m}{Water surface elevation above gauge datum (m)}
+#'   \item{Site_number}{Unique site code (string)}
+#'   }
+#'@format ## `Discharge`, Discharge timeseries in cubic meters per second
+#' \describe{
+#'   \item{time}{Date and time (time, POSIXct)}
+#'   \item{Discharge_m_cubed_per_s}{Dischage (cubic meters per second)}
+#'   \item{Site_number}{Unique site code (string)}
+#'   }
+#'@format ## `Sediment_Samples` , Measured sediment concentration in milligrams per liter (SSC or TSS)
+#' \describe{
+#'   \item{time}{Date and time (time, POSIXct)}
+#'   \item{SSCxs_mg_per_liter}{Concentration of suspended-sediment in milligrams per liter, depth-averaged and velocity weighted average for cross-section}
+#'   \item{SSCpt_mg_per_liter}{Concentration of suspended-sediment in milligrams per liter, measured at-a-point at elevation of hADCP}
+#'   \item{Site_number}{Unique site code (string)}
+#'   }
+#' @section Examples:
+#' data(ExampleData) # lazy-load ony, unable to inspect contents in Rstudio
+#'
+#' names(ExampleData) # load data for inspection in Rstudio and view names of items in list
+#' @source GUIDLINE, Appendix B
+#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+"ExampleData"
