@@ -45,7 +45,7 @@ y<-Sediment_Samples$SSCpt_mg_per_liter
 
 # interpolate surrogate onto analyte timeseries
 # Randomly sample analyte timeseries n times to simulate pump samples
-n <- 100
+n <- 20
 ind_calibration <-sample(1:length(ty),n,replace=FALSE)
 calibration <- surrogate_to_analyte_interpolation(tx,x,ty[ind_calibration],y[ind_calibration],30)
 
