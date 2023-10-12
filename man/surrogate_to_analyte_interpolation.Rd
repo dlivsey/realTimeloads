@@ -32,5 +32,5 @@ threshold <- 10
 calibration <- surrogate_to_analyte_interpolation(tx,x,ty,y,threshold)
 }
 \author{
-Daniel Livsey, September (2023), livsey.daniel@gmail.com, ORCID: 0000-0002-2028-6128
+Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 }

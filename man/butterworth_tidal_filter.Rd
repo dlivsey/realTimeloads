@@ -23,8 +23,8 @@ x <- realTimeloads::ExampleData$Height$Height_m
 xf <- butterworth_tidal_filter(t,x)
 }
 \references{
-Ruhl and Simpson (2005) https://pubs.usgs.gov/sir/2005/5004/sir20055004.pdf
+Ruhl, C. A., & Simpson, M. R. (2005). Computation of discharge using the index-velocity method in tidally affected areas (Vol. 2005). Denver: US Department of the Interior, US Geological Survey. https://pubs.usgs.gov/sir/2005/5004/sir20055004.pdf
 }
 \author{
-Daniel Livsey, September (2023), livsey.daniel@gmail.com, ORCID: 0000-0002-2028-6128
+Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 }

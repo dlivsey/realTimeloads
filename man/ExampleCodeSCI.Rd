@@ -18,12 +18,11 @@ Output <- ExampleCodeSCI()
 }
 }
 \references{
-GUIDLINE
-Livsey et al (2023): https://doi.org/10.1029/2022WR033982
+Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia.
 }
 \seealso{
 \code{\link{realTimeloads}} Package help file
 }
 \author{
-Daniel Livsey, September (2023), livsey.daniel@gmail.com, ORCID: 0000-0002-2028-6128
+Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 }

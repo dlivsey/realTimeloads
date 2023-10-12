@@ -26,10 +26,9 @@ S <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pre
 c <- speed_of_sound(S,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
 }
 \references{
-Del grosso (1974): https://doi.org/10.1121/1.1903388
-
+Del Grosso, V. A. (1974). New equation for the speed of sound in natural waters (with comparisons to other equations). The Journal of the Acoustical Society of America, 56(4), 1084-1091.
 Author modified matlab code from David Schoellhamer
 }
 \author{
-Daniel Livsey, September (2023), livsey.daniel@gmail.com, ORCID: 0000-0002-2028-6128
+Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 }

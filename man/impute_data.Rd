@@ -85,5 +85,5 @@ Stephenson AG (2016). Harmonic Analysis of Tides Using TideHarmonics. https://CR
 Moritz S, Bartz-Beielstein T (2017). “imputeTS: Time Series Missing Value Imputation in R.” The R Journal, 9(1), 207–218. doi:10.32614/RJ-2017-009.
 }
 \author{
-Daniel Livsey, September (2023), livsey.daniel@gmail.com, ORCID: 0000-0002-2028-6128
+Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 }

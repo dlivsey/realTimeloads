@@ -24,11 +24,11 @@ Output <- hADCPLoads(InputData)
 }
 }
 \references{
-GUIDLINE
+Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia.
 }
 \seealso{
 \code{\link{import_data}} Import data from files in user-specified folder
 }
 \author{
-Daniel Livsey, September (2023), livsey.daniel@gmail.com, ORCID: 0000-0002-2028-6128
+Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 }
