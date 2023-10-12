@@ -4,7 +4,7 @@ Version: 1.0.0
 Authors@R: 
     person(given = "Daniel",
            family = "Livsey",
-           role = c("aut", "cre"),
+           role = c("aut", "cre","cph"),
            email = "livsey.daniel@gmail.com",
            comment = c(ORCID = "0000-0002-2028-6128"))
 Description: Flux (mass per unit time) and Load (mass) are computed from timeseries estimates of anlayte concentration and discharge. Concentration timeseries are computed from regression between surrogate and user-provided analyte. Uncertainty in calculations is estimated using bootstrap resampling. Code for the processing of acoustic backscatter from horizontally profiling acoustic Doppler current profilers is provided. 

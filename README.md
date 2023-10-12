@@ -60,16 +60,20 @@ dt[1] = median(dt,na.rm=TRUE) # assume time step 1 using median dt
 Qspt <- Input$Sediment_Samples$SSCpt_mg_per_liter*
 Input$Discharge$Discharge_m_cubed_per_s*dt*1e-9 # actual load (kt) from synthetic data 
 
+# samples used in regression of analyte(surrogate)
+ind <- is.element(time,Output$regression_data$time)
+
 plot(time,Analyte_flux_timeseries_kt$median_confidence,
      col='red',type = "l",lwd= 2,xlab = "time (AEST)",ylab="Analyte load (kiloton)",
      main = "Estimated versus actual load")
 lines(time,Analyte_flux_timeseries_kt$minus_two_sigma_confidence,
-      col='grey')
+      col='blue',lty = c(2))
 lines(time,Analyte_flux_timeseries_kt$plus_two_sigma_confidence,
-      col='grey')
+      col='blue',lty = c(2))
 lines(time,Qspt,col = 'black',lwd= 1.5)
-legend("topright",legend = c("Estimated load","Estimation uncertainty","Actual load"),
-       lty = c(1,1,1),col = c('red', 'grey', 'black'),pch = c(-1,-1,-1))
+points(time[ind],Analyte_flux_timeseries_kt$median_confidence[ind])
+legend("topright",legend = c("Estimated load","Estimation uncertainty","Actual load","Regression data"),
+       lty = c(1,2,1,-1),col = c('red', 'blue', 'black','black'),pch = c(-1,-1,-1,1))
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
