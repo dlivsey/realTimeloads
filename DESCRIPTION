@@ -1,5 +1,5 @@
 Package: realTimeloads
-Title: Analyte Flux and Load from Estimates of Analyte Concentration and Discharge
+Title: Analyte Flux and Load from Estimates of Concentration and Discharge
 Version: 1.0.0
 Authors@R: 
     person(given = "Daniel",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre","cph"),
            email = "livsey.daniel@gmail.com",
            comment = c(ORCID = "0000-0002-2028-6128"))
-Description: Flux (mass per unit time) and Load (mass) are computed from timeseries estimates of anlayte concentration and discharge. Concentration timeseries are computed from regression between surrogate and user-provided analyte. Uncertainty in calculations is estimated using bootstrap resampling. Code for the processing of acoustic backscatter from horizontally profiling acoustic Doppler current profilers is provided. 
+Description: Flux (mass per unit time) and Load (mass) are computed from timeseries estimates of analyte concentration and discharge. Concentration timeseries are computed from regression between surrogate and user-provided analyte. Uncertainty in calculations is estimated using bootstrap resampling. Code for the processing of acoustic backscatter from horizontally profiling acoustic Doppler current profilers is provided. 
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
