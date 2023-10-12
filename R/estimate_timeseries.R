@@ -15,10 +15,10 @@
 #' Output <- estimate_timeseries(Surrogate,Regression)
 #' }
 #' @references
-#' Rustomji and Wilkinson (2008): https://doi.org/10.1029/2007WR006088
+#' Rustomji, P., & Wilkinson, S. N. (2008). Applying bootstrap resampling to quantify uncertainty in fluvial suspended sediment loads estimated using rating curves. Water resources research, 44(9).https://doi.org/10.1029/2007WR006088
 #'
-#' Statistical Methods in Water Resources: https://doi.org/10.3133/tm4a3
-#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+#' Helsel, D.R., Hirsch, R.M., Ryberg, K.R., Archfield, S.A., and Gilroy, E.J., 2020, #' Statistical methods in water resources: U.S. Geological Survey Techniques and Methods, book 4, chap. A3, 458 p. https://doi.org/10.3133/tm4a3
+#' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @export
 #'
 estimate_timeseries <- function(Surrogate,Regression) {

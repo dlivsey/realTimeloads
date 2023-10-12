@@ -82,8 +82,10 @@
 #' EIb <- InputData$Echo_Intensity
 #' Output <- acoustic_backscatter_processing(Site,ADCP,Height,Sonde,EIa,EIb)
 #' }
-#' @references GUIDLINE
-#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+#' @references
+#' Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia.
+#'
+#' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @export
 #'
 acoustic_backscatter_processing  <-  function(Site,ADCP,Height,Sonde,Echo_Intensity_Beam_1,Echo_Intensity_Beam_2,Instrument_Noise_Level = NULL,Include_Rayleigh=FALSE,Include_near_field_correction=TRUE) {

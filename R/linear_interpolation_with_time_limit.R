@@ -16,7 +16,9 @@
 #' ti <-realTimeloads::ExampleData$ADCP$time
 #' threshold <- 1
 #' Output<- linear_interpolation_with_time_limit(t,x,ti,threshold)
-#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+#' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
+#' @references
+#' Dowle M, and others (2023). data.table: Extension of 'data.frame'. https://cran.r-project.org/web/packages/data.table
 #' @export
 #'
 linear_interpolation_with_time_limit <- function(t,x,ti,threshold) {

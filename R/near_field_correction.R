@@ -17,8 +17,9 @@
 #' at <- InputData$ADCP$Transducer_radius_m
 #' r <- seq(0.1,10,0.1)
 #' psi <- near_field_correction(f,c[1],r,at[1])
-#' @references Downing et al (1995): https://doi.org/10.1121/1.412100
-#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+#' @references
+#' Downing, A., Thorne, P. D., & Vincent, C. E. (1995). Backscattering from a suspension in the near field of a piston transducer. The Journal of the Acoustical Society of America, 97(3), 1614-1620.
+#' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @export
 #'
 near_field_correction <- function(f,c,r,at) {

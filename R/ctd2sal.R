@@ -10,10 +10,15 @@
 #' @examples
 #' Sonde <- realTimeloads::ExampleData$Sonde
 #' S <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
-#' @references UNESCO technical paper 44, 1983, with revisions to fresh water from Chen and Millero, 1986.
+#' @references
+#' Fofonoff, N. P., & Millard Jr, R. C. (1983). Algorithms for the computation of fundamental properties of seawater.
 #'
-#' Author modified matlab code from David Schoellhamer
-#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+#' Chen, C. T. A., & Millero, F. J. (1986). Thermodynamic properties for natural waters covering only the limnological range 1. Limnology and Oceanography, 31(3), 657-662.
+#'
+#' Hill, K., Dauphinee, T., & Woods, D. (1986). The extension of the Practical Salinity Scale 1978 to low salinities. IEEE Journal of Oceanic Engineering, 11(1), 109-112.
+#'
+#' Author modified Matlab code from David Schoellhamer
+#' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @export
 #'
 ctd2sal  <-  function(cond,temp,dbar) {

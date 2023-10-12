@@ -14,10 +14,11 @@
 #' S <- ctd2sal(cond,temp,dbar)
 #' aw <- attenuation_of_sound_by_water(f,temp,S) # dB/m
 #' awNp <- attenuation_of_sound_by_water(f,temp,S)/(20*log10(exp(1))) # Np/m
-#' @references Ainslie and McColm (1998): https://doi.org/10.1121/1.421258
+#' @references
+#' Ainslie, M. A., & McColm, J. G. (1998). A simplified formula for viscous and chemical absorption in sea water. The Journal of the Acoustical Society of America, 103(3), 1671-1672.
 #'
-#' Author modified matlab code from David Schoellhamer
-#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+#' Author modified Matlab code from David Schoellhamer
+#' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @export
 #'
 attenuation_of_sound_by_water  <- function(f,T,S) {

@@ -43,7 +43,7 @@
 #' x[idata] <- xo[idata] # simulated samples
 #' Output <- impute_data(t,x,harmonic = TRUE,MC = 10,ptrain = 0.8)
 #' }
-#' @author Daniel Livsey, September (2023), livsey.daniel@@gmail.com, ORCID: 0000-0002-2028-6128
+#' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @references
 #' Rustomji, P., & Wilkinson, S. N. (2008). Applying bootstrap resampling to quantify uncertainty in fluvial suspended sediment loads estimated using rating curves. Water resources research, 44(9).
 #'
