@@ -72,7 +72,7 @@ names(calibration)[grepl('analyte',names(calibration))] <- 'SSCpt_mg_per_liter'
 
 # compute bootstrap regression parameters per https://doi.org/10.1029/2007WR006088]
 fun_eq <- "log10(SSCpt_mg_per_liter) ~ SNR_dB"
-#fun_eq <- "log10(SSCpt_mg_per_liter) ~ SNR_dB+I(SNR_dB^2)"
+# fun_eq <- "log10(SSCpt_mg_per_liter) ~ SNR_dB+I(SNR_dB^2)"
 
 Regression <- realTimeloads::bootstrap_regression(calibration,fun_eq)
 
