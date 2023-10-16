@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre","cph"),
            email = "livsey.daniel@gmail.com",
            comment = c(ORCID = "0000-0002-2028-6128"))
-Description: Flux (mass per unit time) and Load (mass) are computed from timeseries estimates of analyte concentration and discharge. Concentration timeseries are computed from regression between surrogate and user-provided analyte. Uncertainty in calculations is estimated using bootstrap resampling. Code for the processing of acoustic backscatter from horizontally profiling acoustic Doppler current profilers is provided. 
+Description: Flux (mass per unit time) and Load (mass) are computed from timeseries estimates of analyte concentration and discharge. Concentration timeseries are computed from regression between surrogate and user-provided analyte. Uncertainty in calculations is estimated using bootstrap resampling. Code for the processing of acoustic backscatter from horizontally profiling acoustic Doppler current profilers is provided. All methods detailed in Livsey et al (2020) <doi.org/10.1007/s12237-020-00734-z>, Livsey et al (2023) <doi.org/10.1029/2022WR033982>, and references therein.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
