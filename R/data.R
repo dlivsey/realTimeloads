@@ -1,6 +1,6 @@
 #' Example data used to demonstrate computation of real-time sediment loads from horizontal acoustic Doppler current profiler (hADCP)
 #'
-#' Synthetic dataset from modeled sediment transport and acoustic scattering detailed in Appendix B of the GUIDLINE. Following dataframes are provided in list
+#' Synthetic dataset from modeled sediment transport and acoustic scattering detailed in the Appendices of Livsey (in review) Following dataframes are provided in list
 #' @format ## `Site` , Site, site datum, and ADCP elevation information
 #' \describe{
 #'   \item{Site_name}{Site name (string)}

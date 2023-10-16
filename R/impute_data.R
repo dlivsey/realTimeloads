@@ -2,9 +2,9 @@
 #'
 #' Returns x with gaps imputed using ARIMA and Decision Trees with option to use  harmonic model as predictors for x in decision tree algorithm. Uncertainty on imputed data is estimated using using Monte Carlo (MC) resampling adapting methods of Rustomji and Wilkinson (2008)
 #'
-#' @param t time for x (time, POSIXct)
+#' @param time time for x (time, POSIXct)
 #' @param x any quantity (double)
-#' @param Xreg additional predictors for decision tree, required if harmonic is FALSE (rows = time of t, or if given, ti)
+#' @param Xreg additional predictors for decision tree, required if harmonic is FALSE (rows = time, or if given, ti)
 #' @param ti time vector for interpolation (time, POSIXct)
 #' @param hfit model object from TideHarmonics::ftide
 #' @param harmonic logical if x exhibits tidal or diurnal variability
@@ -12,11 +12,10 @@
 #' @param MC number of Monte Carlo simulations for uncertainty estimation
 #' @param ptrain proportion of data used for training and testing model
 #' @note If MC == 1, uncertainty is not evaluated. If ptrain == 1, uncertainty and validation accuracy are not computed
-#' @returns list with x imputed at t or ti, if given. Uncertainty estimated from Monte Carlo simulations
+#' @returns list with x imputed at time or ti, if given. Uncertainty estimated from Monte Carlo simulations
 #' @examples
-#' \dontrun{
 #' # Impute non-tidal data
-#' t <- realTimeloads::ExampleData$Sediment_Samples$time
+#' time <- realTimeloads::ExampleData$Sediment_Samples$time
 #' xo <- realTimeloads::ExampleData$Sediment_Samples$SSCxs_mg_per_liter
 #' Q <- realTimeloads::ExampleData$Discharge$Discharge_m_cubed_per_s
 #' idata <- sample(1:length(xo),round(length(xo)*0.5),replace=FALSE)
@@ -24,25 +23,15 @@
 #' x[idata] <- xo[idata] # simulated samples
 #' flow_concentrtion_ratio <- imputeTS::na_interpolation(Q/x)
 #' Xreg <- cbind(Q,flow_concentrtion_ratio)
-#' Output <- impute_data(t,x,Xreg,MC = 10,ptrain = 0.8)
-#' # # Example of plot and summary statistics
-#' # xo <- Output$Imputed_data$x
-#' # x_imputed <- xo
-#' # xo[Output$Imputed_data$imputed] <-NA
-#' # x_imputed[!Output$Imputed_data$imputed] <-NA
-#' # plot(xo)
-#' # points(x_imputed,col='red')
-#' # lines(Output$Imputed_data$x_at_minus_two_sigma_confidence,col='blue')
-#' # lines(Output$Imputed_data$x_at_plus_two_sigma_confidence,col='blue')
-#' # # Validation statistics are given in Output$Validation_data_and_statistics
+#' Output <- impute_data(time,x,Xreg,MC = 10,ptrain = 0.8)
+#'
 #' # Impute tidal data
-#' t <-TideHarmonics::Portland$DateTime[1:(24*90)]
+#' time <-TideHarmonics::Portland$DateTime[1:(24*90)]
 #' xo <-TideHarmonics::Portland$SeaLevel[1:(24*90)]
 #' idata <- sample(1:length(xo),round(length(xo)*0.5),replace=FALSE)
 #' x <- rep(NA,length(xo))
 #' x[idata] <- xo[idata] # simulated samples
-#' Output <- impute_data(t,x,harmonic = TRUE,MC = 10,ptrain = 0.8)
-#' }
+#' Output <- impute_data(time,x,harmonic = TRUE,MC = 10,ptrain = 0.8)
 #' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @references
 #' Rustomji, P., & Wilkinson, S. N. (2008). Applying bootstrap resampling to quantify uncertainty in fluvial suspended sediment loads estimated using rating curves. Water resources research, 44(9).
@@ -55,7 +44,7 @@
 #'
 #' @export
 #'
-impute_data <- function(t,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,only_use_Xreg=FALSE,MC = 1,ptrain = 1) {
+impute_data <- function(time,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,only_use_Xreg=FALSE,MC = 1,ptrain = 1) {
 
   #st <- Sys.time() # used in testing for inspecting run time of code blocks
 
@@ -64,10 +53,10 @@ impute_data <- function(t,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,onl
     stop(msg)
   }
 
-  if (is.null(ti)) ti <- t
+  if (is.null(ti)) ti <- time
 
   if (length(unique(diff(ti)))>1) {
-    msg <-'t (or ti if given) must be regualarly spaced for ARIMA, no imputation undertaken'
+    msg <-'time (or ti if given) must be regualarly spaced for ARIMA, no imputation undertaken'
     stop(msg)
   }
 
@@ -79,12 +68,12 @@ impute_data <- function(t,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,onl
 
   if (length(unique(diff(ti)))==1) {
     # ensure inputs do not have missing values, duplicate times, or unsorted time
-    igood <- !duplicated(t)
-    t <- t[igood]
+    igood <- !duplicated(time)
+    time <- time[igood]
     x <- x[igood]
-    df <- data.frame(t,x)
-    df <- df[order(df$t),]
-    t<- df$t
+    df <- data.frame(time,x)
+    df <- df[order(df$time),]
+    time<- df$time
     x<- df$x
     rm(df)
     ti <- sort(ti)
@@ -99,14 +88,14 @@ impute_data <- function(t,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,onl
     dt <- as.double(difftime(ti[2],ti[1],units = 'hours'))
 
     # linearly interpolate vector if needed and permit 1 hr to nearest data point, ti is equally spaced time-vector
-    if (length(ti)==length(t)) {
-      if (as.double(sum(ti-t))==0) xi <- x # if ti=t, no need to interpolate
-      if (as.double(sum(ti-t))!=0) {
-        xi <-as.double(linear_interpolation_with_time_limit(t,x,ti,1)$x_interpolated)
+    if (length(ti)==length(time)) {
+      if (as.double(sum(ti-time))==0) xi <- x # if ti=time, no need to interpolate
+      if (as.double(sum(ti-time))!=0) {
+        xi <-as.double(linear_interpolation_with_time_limit(time,x,ti,1)$x_interpolated)
       }
     }
-    if (length(ti)!=length(t)) {
-      xi <-as.double(linear_interpolation_with_time_limit(t,x,ti,1)$x_interpolated)
+    if (length(ti)!=length(time)) {
+      xi <-as.double(linear_interpolation_with_time_limit(time,x,ti,1)$x_interpolated)
     }
 
     missing_data <- !is.finite(xi)
@@ -118,7 +107,7 @@ impute_data <- function(t,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,onl
     if (harmonic & !only_use_Xreg) {
 
       igood <- is.finite(x) # ftide does not accept NA
-      if (is.null(hfit)) hfit <- TideHarmonics::ftide(x[igood],t[igood],TideHarmonics::hc7)
+      if (is.null(hfit)) hfit <- TideHarmonics::ftide(x[igood],time[igood],TideHarmonics::hc7)
       # sum of harmonic amplitudes and msl
       xp <- predict(hfit,from = min(ti),to = max(ti),by = dt)
 
@@ -149,7 +138,7 @@ impute_data <- function(t,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,onl
 
       xnt <- butterworth_tidal_filter(ti,xii)  # Non-tidal stage using USGS butterworth
       xnt <- imputeTS::na_interpolation(xnt,maxgap = readings_per_hour*24*7)
-      xnt[!is.finite(xnt)] <- median(xnt,na.rm=T)
+      xnt[!is.finite(xnt)] <- median(xnt,na.rm=TRUE)
 
     }
 
@@ -257,7 +246,7 @@ imputation_uncertainty <- function(x,Xtree,MC,ptrain) {
     # for each i resample data if mice::mice.impute.cart() fails
     while(is.null(out) && attempt <= max_attempts) {
       if (length(x)>10000 & MC >100) {
-        print(paste(paste('Monte Carlo Simulation =',i),paste('mice::mice.impute.cart() attempt =',attempt)))
+        message(paste(paste('Monte Carlo Simulation =',i),paste('mice::mice.impute.cart() attempt =',attempt)))
       }
       attempt <- attempt + 1
       try(out <- mc_model(x,n_train_test,Xtree,MC,ptrain))

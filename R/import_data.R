@@ -10,9 +10,7 @@
 #'
 #' Suggest saving all csv files in .txt format to ensure time format is not changed when editing/saving csv in Excel
 #' @examples
-#' \dontrun{
 #' InputData <- import_data() # loads text files provided in package folder "extdata"
-#' }
 #' @seealso
 #' \code{\link{hADCPLoads}} Process acoustic backscatter from hADCP and compute load using InputData from import_Data()
 #' @references
@@ -25,7 +23,7 @@ import_data <- function(data_folder) {
   # file paths
   # Load text files provided in package if no data_folder provided
   if (missing(data_folder)) {
-    print("LOADING PACKAGE EXAMPLE DATA")
+    #print("LOADING PACKAGE EXAMPLE DATA")
 
     fpathSite <- system.file("extdata", "ADCP_elevations_and_site_datums.txt", package="realTimeloads")
 

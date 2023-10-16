@@ -15,7 +15,7 @@
 #'
 #' Analyte concentration estimated from surrogate should be in milligrams per second
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Turbidity_FNU <- realTimeloads::ExampleData$Sonde$Turbidity
 #' TSS_mg_per_l <- realTimeloads::ExampleData$Sediment_Samples$SSCpt_mg_per_liter
 #' Discharge <- realTimeloads::ExampleData$Discharge

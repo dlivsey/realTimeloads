@@ -1,11 +1,11 @@
 #' Computes sediment load from optical and acoustic backscatter measurements
 #'
-#' Computes sediment load per guideline from optical and acoustic backscatter measurements combined to the "Sediment Composition Index" (SCI) see Livsey et al (2023)
+#' Computes sediment load per guideline from optical and acoustic backscatter measurements combined to the "Sediment Composition Index" (SCI) per Livsey et al (2023)
 #' @returns total load with uncertainty computed from estimates of concentration from SCI
 #' @seealso
 #' \code{\link{realTimeloads}} Package help file
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Output <- ExampleCodeSCI()
 #' }
 #' @references
@@ -39,7 +39,7 @@ SCIo <- SNRo - 10*log10(OBSo)
 # calibration, randomly sample synthetic data to simulate sampling of hydrograph
 n <- 12 # arbitrary number
 ind <-sample(1:nrow(ADCP),n,replace=FALSE)
-t<- realTimeloads::ExampleData$Sonde$time[ind]
+# time <- realTimeloads::ExampleData$Sonde$time[ind]
 OBS <- realTimeloads::ExampleData$Sonde$Turbidity_FNU[ind]
 C <- realTimeloads::ExampleData$Sediment_Samples$SSCpt_mg_per_liter[ind]
 Cxs <- realTimeloads::ExampleData$Sediment_Samples$SSCxs_mg_per_liter[ind]

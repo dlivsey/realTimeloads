@@ -69,9 +69,8 @@
 #' @param Instrument_Noise_Level Estimate of noise level, recommended if ambient noise level is not recorded (counts)
 #' @param Include_Rayleigh Logical to include data within Rayleigh Distance for processing of acoustic backsactter
 #' @param Include_near_field_correction Logical to include near-field correction of Downing et al (1995)
-#' @returns List with processed data, all variable names and units are written-out in list items, see GUIDLINE for details of each variable
+#' @returns List with processed data, all variable names and units are written-out in list items, see Livsey (in review) for details of each variable
 #' @examples
-#' \dontrun{
 #' InputData <- realTimeloads::ExampleData
 #' Site <- InputData$Site
 #' ADCP <- InputData$ADCP
@@ -81,7 +80,6 @@
 #' # example code assumes backscatter is equal across beams
 #' EIb <- InputData$Echo_Intensity
 #' Output <- acoustic_backscatter_processing(Site,ADCP,Height,Sonde,EIa,EIb)
-#' }
 #' @references
 #' Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia.
 #'
@@ -96,13 +94,13 @@ Vertical_Distance_From_Gauge_to_Thalweg = Site$Distance_of_gauge_datum_below_tha
 ADCP_m_above_datum <- Site$ADCP_elevation_above_gauge_datum_m # distance from ADCP elevation to stage datum (m, up positive)
 
 # ADCP instrument characteristics and settings
-f <- ADCP$Accoustic_Frequency_kHz*1000 # kHz to Hz, from manufacturer, note a 600 KhZ ADCP has frequency close to 600 kHz but the actual value should be read from the instrument
+freq <- ADCP$Accoustic_Frequency_kHz*1000 # kHz to Hz, from manufacturer, note a 600 KhZ ADCP has frequency close to 600 kHz but the actual value should be read from the instrument
 at <- ADCP$Transducer_radius_m # m, from manufacturer
 binSize <- ADCP$Bin_Size_m # m, set by user
 AR <- ADCP$Beam_aspect_ratio # ratio of the distance of ADCP beam from the ADCP to the distance to the nearest boundary, accounts for conical shape of beam as it spreads-out get value from ADCP manual
 
-t <- ADCP$time
-nt <- length(t)
+time <- ADCP$time
+nt <- length(time)
 ncells <- ADCP$Number_of_Cells[1]
 
 # Only process data if cell settings are held constant
@@ -117,7 +115,7 @@ if (test_constant_cell_settings == 3) {
 
   # Depth of ADCP and total depth
   H <- Height$Height_m - Vertical_Distance_From_Gauge_to_Thalweg # Total depth of channel at deepest point (m)
-  H <- linear_interpolation_with_time_limit(Height$time,H,t,Inf)$x_interpolated
+  H <- linear_interpolation_with_time_limit(Height$time,H,time,Inf)$x_interpolated
   D <- H - ADCP_m_above_datum # Depth of the ADCP, one can use ADCP pressure (dBar~= 1 m water depth) or vertical distance water surface from vertical beam (if available)
 
   # prefer vertical beam depth from ADCP if available
@@ -130,50 +128,50 @@ if (test_constant_cell_settings == 3) {
   }
 
 # Speed of sound in water (c, m/s)
-T <- ADCP$Temperature_degC # as record by ADCP
+temp <- ADCP$Temperature_degC # as record by ADCP
 
-# Conductivity to Salinity (PSU), if Conductivity is specific conductivity T in ctd2sal must be set to 25, T and D MUST be the T and D where the conductivity was measured, this may or may not be at ADCP position (e.g, in flow cell)
+# Conductivity to Salinity (PSU), if Conductivity is specific conductivity temp in ctd2sal must be set to 25, temp and D MUST be the temp and D where the conductivity was measured, this may or may not be at ADCP position (e.g, in flow cell)
 # if sonde is in flow cell, set pressure to 0.
-S <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Temperature_degC,Sonde$Pressure_dBar)
+sal <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Temperature_degC,Sonde$Pressure_dBar)
 # allow  linear interpolation over all time gaps
-S <- linear_interpolation_with_time_limit(Sonde$time,S,t,Inf)
-S <- S$x_interpolated
+sal <- linear_interpolation_with_time_limit(Sonde$time,sal,time,Inf)
+sal <- sal$x_interpolated
 
 # Infill missing salinity data
-if (sum(is.finite(S)) >= 2) {
-  S <- imputeTS::na_ma(S)
+if (sum(is.finite(sal)) >= 2) {
+  sal <- imputeTS::na_ma(sal)
 }
-if (sum(is.finite(S)) < 2) {
+if (sum(is.finite(sal)) < 2) {
   if (is.element('Salinity_PSU',colnames(ADCP))) {
-    S <- ADCP$Salinity_PSU
+    sal <- ADCP$Salinity_PSU
     warning('No salinity data from sonde, setting salinity to user-programmed value')
   }
   if (!is.element('Salinity_PSU',colnames(ADCP))) {
-  S[] <- 0
+  sal[] <- 0
   warning('No salinity data from sonde or ADCP, assuming salinity of 0 PSU')
   }
 }
 
-# S,T, and D is that of the ADCP not necessarily that of the Sonde (e.g., if the sonde is in a flow cell)
+# sal,temp, and D is that of the ADCP not necessarily that of the Sonde (e.g., if the sonde is in a flow cell)
 # ADCP may use specified speed of sound to estimate pulse length (tau), user should check if ADCP uses constant speed of sound or is estimating c w/ time
 co <- ADCP$Speed_of_sound_m_per_s
 Dc <- D
 Dc[D<0] <-0
-c <- speed_of_sound(S,T,Dc) # actual speed of sound in water (m/s)
+c <- speed_of_sound(sal,temp,Dc) # actual speed of sound in water (m/s)
 
 # Rayleigh distance (m)
-lamba <- c/(f) # wavelength of sound (m)
+lamba <- c/(freq) # wavelength of sound (m)
 k = (2*pi)/lamba # acoustic wave number (1/m)
 Rayleigh_Distance = (pi*at^2)/lamba # Rayleigh distance (m)
 
 
 # compute echo intensity scalar (kc) per RDI (deciBels per count)
-# T is temperature of the ADCP (deg C) NOT necessarily that of the Sonde
-kc <- 127.3/(T+273)
+# temp is temperature of the ADCP (deg C) NOT necessarily that of the Sonde
+kc <- 127.3/(temp+273)
 
 # attenuation of sound in water (aw, dB/m)
-# T is temperature of the ADCP (deg C) NOT necessarily that of the Sonde
-aw <- attenuation_of_sound_by_water(f,T,S)
+# temp is temperature of the ADCP (deg C) NOT necessarily that of the Sonde
+aw <- attenuation_of_sound_by_water(freq,temp,sal)
 
 # Compute maximum profiling distance considering beam spreading
 # assumes the ADCP is horizontal
@@ -285,7 +283,7 @@ r =  matrix(NA, nrow = nt, ncol = ncells)
 igooda =  matrix(FALSE, nrow = nt, ncol = ncells)
 igoodb =  matrix(FALSE, nrow = nt, ncol = ncells)
 
-for(i in 1:length(t)) {
+for(i in 1:length(time)) {
   # print(i)
   r[i,] = seq(r1[i],r1[i]+dr[i]*(ncells-1),length.out = ncells)
   # logical to determine cell should be used to compute mean backscatter from WCB or SCB.
@@ -320,7 +318,7 @@ ignb <- rowSums(igoodb)
 if (!Include_near_field_correction & Include_Rayleigh) {
   warning('Near-field correction likely needed when using data within Rayleigh Distace') }
 
-psi <- near_field_correction(f,c,r,at)
+psi <- near_field_correction(freq,c,r,at)
 
 if (!Include_near_field_correction) {
   psi[] <- 1 #
@@ -337,17 +335,17 @@ WCBb = MBsnr_b+corr
 
 # Compute sediment attenuation coefficient (dB/m)
 # Preallocate matrices
-as_a <- rep(NA,length(t))
-as_b <- rep(NA,length(t))
-as_a_pvalue <- rep(NA,length(t))
-as_b_pvalue <- rep(NA,length(t))
+as_a <- rep(NA,length(time))
+as_b <- rep(NA,length(time))
+as_a_pvalue <- rep(NA,length(time))
+as_b_pvalue <- rep(NA,length(time))
 SCBa =  matrix(NA, nrow = nt, ncol = ncells)
 SCBb =  matrix(NA, nrow = nt, ncol = ncells)
 # mean SCB
-muSCBa =  rep(NA,length(t))
-muSCBb =  rep(NA,length(t))
-#(i in 1:length(t))
-for (i in 1:length(t)) {
+muSCBa =  rep(NA,length(time))
+muSCBb =  rep(NA,length(time))
+#(i in 1:length(time))
+for (i in 1:length(time)) {
 #print(i)
 # compute slope of WCB(r) for beam 1
 if (igna[i]>3) {
@@ -357,9 +355,9 @@ df <- data.frame(x,y)
 # fit linear model
 fit <- lm(y ~ x, data=df)
 # get p-value of f statistic
-f <- summary(fit)$fstatistic
+fstat <- summary(fit)$fstatistic
 as_a[i] = fit$coefficients[2]*-0.5
-p <- pf(f[1],f[2],f[3],lower.tail=F)
+p <- pf(fstat[1],fstat[2],fstat[3],lower.tail=F)
 attributes(p) <- NULL
 as_a_pvalue[i] <- p
 # Compute SCB only if as is positive and statistically significant
@@ -391,9 +389,9 @@ if (ignb[i]>3) {
   # fit linear model
   fit <- lm(y ~ x, data=df)
   # get p-value of f statistic
-  f <- summary(fit)$fstatistic
+  fstat <- summary(fit)$fstatistic
   as_b[i] = fit$coefficients[2]*-0.5
-  p <- pf(f[1],f[2],f[3],lower.tail=F)
+  p <- pf(fstat[1],fstat[2],fstat[3],lower.tail=F)
   attributes(p) <- NULL
   as_b_pvalue[i] <- p
   # Compute SCB only if as is positive and statistically significant
@@ -424,11 +422,10 @@ dB <- rowMeans(cbind(muSCBb,muSCBa),na.rm = TRUE)
 # Double Checked code results by comparing dB to Matlab dB
 
 # Save processed data
-time <- t
 Mean_sediment_corrected_backscatter_dB <- dB
 Processed_Backscatter <- data.frame(time,Mean_sediment_corrected_backscatter_dB)
 
-Output <- list("time" = t,"mean_sediment_corrected_backscatter_beam_1_and_beam_2_dB" = dB,"mean_sediment_corrected_backscatter_beam_1_dB" = muSCBa,"mean_sediment_corrected_backscatter_beam_2_dB" = muSCBb,"range_along_beam_m" = r,"echo_intensity_beam_1_counts"= EIa,"echo_intensity_beam_2_counts"= EIb,"noise_level_counts_beam_1" = NLa,"noise_level_counts_beam_2" = NLb,"measured_backscatter_in_SNR_beam_1_dB" = MBsnr_a,"measured_backscatter_in_SNR_beam_2_dB" = MBsnr_b,"water_corrected_backscatter_beam_1_dB" = WCBa,"water_corrected_backscatter_beam_2_dB" = WCBb,"sediment_corrected_backscatter_beam_1_dB" = SCBa,"sediment_corrected_backscatter_beam_2_dB" = SCBb,"attenuation_of_sound_due_to_water_dB_per_m" = aw,"attenuation_of_sound_due_to_sediment_beam_1_dB_per_m" = as_a,"attenuation_of_sound_due_to_sediment_beam_2_dB_per_m" = as_b,"kc_dB_per_counts" = kc,"speed_of_sound_m_per_sec" = c)
+Output <- list("time" = time,"mean_sediment_corrected_backscatter_beam_1_and_beam_2_dB" = dB,"mean_sediment_corrected_backscatter_beam_1_dB" = muSCBa,"mean_sediment_corrected_backscatter_beam_2_dB" = muSCBb,"range_along_beam_m" = r,"echo_intensity_beam_1_counts"= EIa,"echo_intensity_beam_2_counts"= EIb,"noise_level_counts_beam_1" = NLa,"noise_level_counts_beam_2" = NLb,"measured_backscatter_in_SNR_beam_1_dB" = MBsnr_a,"measured_backscatter_in_SNR_beam_2_dB" = MBsnr_b,"water_corrected_backscatter_beam_1_dB" = WCBa,"water_corrected_backscatter_beam_2_dB" = WCBb,"sediment_corrected_backscatter_beam_1_dB" = SCBa,"sediment_corrected_backscatter_beam_2_dB" = SCBb,"attenuation_of_sound_due_to_water_dB_per_m" = aw,"attenuation_of_sound_due_to_sediment_beam_1_dB_per_m" = as_a,"attenuation_of_sound_due_to_sediment_beam_2_dB_per_m" = as_b,"kc_dB_per_counts" = kc,"speed_of_sound_m_per_sec" = c)
 
 #write.csv(Processed_Backscatter, "Data/Processed_Backscatter.csv", row.names=FALSE)
 

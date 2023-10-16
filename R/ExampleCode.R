@@ -5,7 +5,7 @@
 #' @seealso
 #' \code{\link{realTimeloads}} Package help file
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Output <- ExampleCode()
 #' }
 #' @references

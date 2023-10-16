@@ -5,7 +5,7 @@
 #' @param Regression data frame from bootstrap_regression() that determines analyte(surrogate)
 #' @returns list with inputs and uncertainty on timeseries estimated from Regression
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' Turbidity_FNU <- realTimeloads::ExampleData$Sonde$Turbidity
 #' TSS_mg_per_l <- realTimeloads::ExampleData$Sediment_Samples$SSCpt_mg_per_liter
 #' Calibration <- data.frame(Turbidity_FNU,TSS_mg_per_l)

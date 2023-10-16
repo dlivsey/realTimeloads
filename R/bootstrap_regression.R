@@ -13,7 +13,7 @@
 #' Bias Correction Factor (BCF) is only relevant when analyte is transformed to log units, see https://doi.org/10.3133/tm4a3
 #' to convert a model that used log(analyte) back to linear units use: analyte = 10^(f(surrogates)) x BCF
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # linear model
 #' x <- 1:10
 #' y <- 0.5*x + 10

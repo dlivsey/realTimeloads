@@ -9,7 +9,7 @@
 #' If specific conductivity is returned from the sonde, the temperature at which specific conductivity is computed should be utilized
 #' @examples
 #' Sonde <- realTimeloads::ExampleData$Sonde
-#' S <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
+#' sal <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
 #' @references
 #' Fofonoff, N. P., & Millard Jr, R. C. (1983). Algorithms for the computation of fundamental properties of seawater.
 #'
@@ -108,5 +108,7 @@ rooty <- sqrt(y)
 fT <- (temp-15)/(1+salk*(temp-15))
 sal <- sal-sala0/(1+1.5*x+x^2)-salb0*fT/(1+rooty+y+rooty^3)
 sal <- round(sal,2)
+
+return(sal)
 
 }
