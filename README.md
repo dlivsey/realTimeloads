@@ -65,19 +65,20 @@ ind <- is.element(time,Output$regression_data$time)
 
 plot(time,Analyte_flux_timeseries_kt$median_confidence,
      col='red',type = "l",lwd= 2,xlab = "time (AEST)",ylab="Analyte load (kiloton)",
-     main = "Estimated versus actual load")
+     main = "Estimated versus actual load",ylim = c(0,60))
 lines(time,Analyte_flux_timeseries_kt$minus_two_sigma_confidence,
       col='blue',lty = c(2))
 lines(time,Analyte_flux_timeseries_kt$plus_two_sigma_confidence,
       col='blue',lty = c(2))
 lines(time,Qspt,col = 'black',lwd= 1.5)
-points(time[ind],Analyte_flux_timeseries_kt$median_confidence[ind])
+points(time[ind],Analyte_flux_timeseries_kt$median_confidence[ind],pch = 19)
 legend("topright",legend = c("Estimated load","Estimation uncertainty","Actual load","Regression data"),
-       lty = c(1,2,1,-1),col = c('red', 'blue', 'black','black'),pch = c(-1,-1,-1,1))
+       lty = c(1,2,1,-1),col = c('red', 'blue', 'black','black'),pch = c(-1,-1,-1,19))
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" /> \##
-References
+<img src="man/figures/README-example-1.png" width="100%" />
+
+## References
 
 Livsey, D. N., Downing-Kunz, M. A., Schoellhamer, D. H., & Manning, A.
 J. (2020). Suspended sediment flux in the San Francisco Estuary: Part
@@ -93,4 +94,4 @@ Density. Water Resources Research, 59(8), e2022WR033982.
 Livsey, D.N. (in review). National Industry Guidelines for hydrometric
 monitoring–Part 12: Application of acoustic Doppler velocity meters to
 measure suspended-sediment load. Bureau of Meteorology. Melbourne,
-Australi
+Australia
