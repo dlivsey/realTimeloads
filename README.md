@@ -6,10 +6,10 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of realTimeloads is to compute estimates of analyte flux and
+realTimeloads provides tools to compute estimates of analyte flux and
 load from estimated timeseries of analyte concentration and discharge.
 An “analyte” is any laboratory measured quantity. Discharge is water
-volume per unit time. In hydrology, timeseries estimates of analyte
+volume per unit time. In hydrology timeseries estimates of analyte
 concentration are often computed as analyte analysis is cost-prohibitive
 for continuous water-quality monitoring. A synthetic data set is
 provided to allow users to explore package functionality and to
@@ -28,12 +28,12 @@ You can install the development version from
 ## Example
 
 This is a basic example which shows how to load data from csv files and
-compute suspended-sediment loads from an acoustic Doppler velocity
-meter. Data formatted to match the package csv data files can be used to
-compute loads from user-provided data.
+compute suspended-sediment loads from an acoustic Doppler velocity meter
+(ADVM). Data formatted to match the package csv data files can be used
+to compute loads from user-provided data.
 
 Users are encouraged to explore package functionality via:
-vignette(‘realTimeLoads’,package=‘realTimeLoads’) and ?realTimeLoads.
+vignette(“realTimeloads”,package=“realTimeloads”) and ?realTimeLoads.
 Additional worked examples are provided in realTimeloads::ExampleCode()
 and realTimeloads::ExampleCodeSCI()
 
@@ -41,18 +41,18 @@ A published example using the package methods can be found in: Livsey et
 al (2020) <https://doi.org/10.1007/s12237-020-00734-z>
 
 ``` r
+### Call package and process data ----
 library(realTimeloads)
 #> Registered S3 method overwritten by 'quantmod':
 #>   method            from
 #>   as.zoo.data.frame zoo
-## basic example code
 Input <- realTimeloads::import_data()
-#> [1] "LOADING PACKAGE EXAMPLE DATA"
 Output <- realTimeloads::hADCPLoads(Input)
 
+### Plot results ----
 time <- Output$time
 Analyte_flux_timeseries_kt <- Output$Analyte_flux_timeseries_kt
-# compute dt (seconds) for used for load integration
+# compute dt (seconds) for used for computing load 
 dt =  c()
 dt[2:length(time)] <- as.numeric(difftime(time[2:length(time)],time[1:length(time)-1],units = "secs"))
 dt[1] = median(dt,na.rm=TRUE) # assume time step 1 using median dt
@@ -76,4 +76,21 @@ legend("topright",legend = c("Estimated load","Estimation uncertainty","Actual l
        lty = c(1,2,1,-1),col = c('red', 'blue', 'black','black'),pch = c(-1,-1,-1,1))
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" width="100%" /> \##
+References
+
+Livsey, D. N., Downing-Kunz, M. A., Schoellhamer, D. H., & Manning, A.
+J. (2020). Suspended sediment flux in the San Francisco Estuary: Part
+I—Changes in the vertical distribution of suspended sediment and bias in
+estuarine sediment flux measurements. Estuaries and Coasts, 43,
+1956-1972.
+
+Livsey, D. N., Turner, R. D. R., & Grace, P. R. (2023). Combining
+Optical and Acoustic Backscatter Measurements for Monitoring of Fine
+Suspended‐Sediment Concentration Under Changes in Particle Size and
+Density. Water Resources Research, 59(8), e2022WR033982.
+
+Livsey, D.N. (in review). National Industry Guidelines for hydrometric
+monitoring–Part 12: Application of acoustic Doppler velocity meters to
+measure suspended-sediment load. Bureau of Meteorology. Melbourne,
+Australi
