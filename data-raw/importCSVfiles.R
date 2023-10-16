@@ -8,7 +8,8 @@
 #' Save csv files in .txt format to ensure time format is not changed when editing/saving csv in Excel
 #' @examples
 #' ExampleData <- ExampleCode()
-#' @references GUIDLINE
+#' @references
+#' Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia
 #' @author Daniel Livsey (2023) ORCID: 0000-0002-2028-6128
 #' @export
 #'
@@ -19,8 +20,7 @@ importCSVfiles <- function() {
 #  step <- 9 # default to hourly data for example
 #}
 
-
-## use hourly data for example code in package, 6 minute example data used in GUIDLINE available on Github
+## use hourly data for example code in package, 6 minute example data used in GUIDLINE can be made publicly available on Github if requested
 
 # LOAD DATA -----------------------------------------------------
 # Site
