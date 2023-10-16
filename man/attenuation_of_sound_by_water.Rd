@@ -4,14 +4,14 @@
 \alias{attenuation_of_sound_by_water}
 \title{Compute attenuation of sound in water given frequency, temperature, and salinity}
 \usage{
-attenuation_of_sound_by_water(f, T, S)
+attenuation_of_sound_by_water(freq, temp, sal)
 }
 \arguments{
-\item{f}{frequency of sound (Hz)}
+\item{freq}{frequency of sound (Hz)}
 
-\item{T}{Water temperature (degrees C)}
+\item{temp}{Water temperature (degrees C)}
 
-\item{S}{Salinity (PSU)}
+\item{sal}{Salinity (PSU)}
 }
 \value{
 attenuation of sound in water (dB/m), divide by 20*log10(exp(1)) to convert to Nepers/m
@@ -21,13 +21,13 @@ Computes attenuation of sound in water per Ainslie and McColm (1998)
 }
 \examples{
 InputData <- realTimeloads::ExampleData
-f <- InputData$ADCP$Accoustic_Frequency_kHz*1000
+freq <- InputData$ADCP$Accoustic_Frequency_kHz*1000
 cond <-InputData$Sonde$Conductivity_uS_per_cm
 temp <- InputData$Sonde$Water_Temperature_degC
 dbar <- InputData$Sonde$Pressure_dbar
-S <- ctd2sal(cond,temp,dbar)
-aw <- attenuation_of_sound_by_water(f,temp,S) # dB/m
-awNp <- attenuation_of_sound_by_water(f,temp,S)/(20*log10(exp(1))) # Np/m
+sal <- ctd2sal(cond,temp,dbar)
+aw <- attenuation_of_sound_by_water(freq,temp,sal) # dB/m
+awNp <- attenuation_of_sound_by_water(freq,temp,sal)/(20*log10(exp(1))) # Np/m
 }
 \references{
 Ainslie, M. A., & McColm, J. G. (1998). A simplified formula for viscous and chemical absorption in sea water. The Journal of the Acoustical Society of America, 103(3), 1671-1672.

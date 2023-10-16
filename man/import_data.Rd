@@ -25,9 +25,7 @@ Suggest saving all csv files in .txt format to ensure time format is not changed
 }
 
 \examples{
-\dontrun{
 InputData <- import_data() # loads text files provided in package folder "extdata"
-}
 }
 \references{
 Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia.

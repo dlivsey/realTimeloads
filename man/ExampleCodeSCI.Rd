@@ -10,10 +10,10 @@ ExampleCodeSCI()
 total load with uncertainty computed from estimates of concentration from SCI
 }
 \description{
-Computes sediment load per guideline from optical and acoustic backscatter measurements combined to the "Sediment Composition Index" (SCI) see Livsey et al (2023)
+Computes sediment load per guideline from optical and acoustic backscatter measurements combined to the "Sediment Composition Index" (SCI) per Livsey et al (2023)
 }
 \examples{
-\dontrun{
+\donttest{
 Output <- ExampleCodeSCI()
 }
 }

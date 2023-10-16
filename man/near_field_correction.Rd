@@ -4,10 +4,10 @@
 \alias{near_field_correction}
 \title{Near-field correction of Downing et al (1995)}
 \usage{
-near_field_correction(f, c, r, at)
+near_field_correction(freq, c, r, at)
 }
 \arguments{
-\item{f}{Frequency of sound (Hz)}
+\item{freq}{Frequency of sound (Hz)}
 
 \item{c}{Speed of sound in water (m/s)}
 
@@ -29,12 +29,12 @@ See various references cautioning use of near-field correction (e.g.,  https://d
 \examples{
 InputData <- realTimeloads::ExampleData
 Sonde<- InputData$Sonde
-f <- InputData$ADCP$Accoustic_Frequency_kHz[1]*1000
+freq <- InputData$ADCP$Accoustic_Frequency_kHz[1]*1000
 S <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
 c <- speed_of_sound(S,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
 at <- InputData$ADCP$Transducer_radius_m
 r <- seq(0.1,10,0.1)
-psi <- near_field_correction(f,c[1],r,at[1])
+psi <- near_field_correction(freq,c[1],r,at[1])
 }
 \references{
 Downing, A., Thorne, P. D., & Vincent, C. E. (1995). Backscattering from a suspension in the near field of a piston transducer. The Journal of the Acoustical Society of America, 97(3), 1614-1620.

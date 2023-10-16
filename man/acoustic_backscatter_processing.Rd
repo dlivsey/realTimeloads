@@ -94,13 +94,12 @@ acoustic_backscatter_processing(
 \item{Include_near_field_correction}{Logical to include near-field correction of Downing et al (1995)}
 }
 \value{
-List with processed data, all variable names and units are written-out in list items, see GUIDLINE for details of each variable
+List with processed data, all variable names and units are written-out in list items, see Livsey (in review) for details of each variable
 }
 \description{
 Processes acoustic backscatter from horizontally profiling ADCP (hADCP). Returns attenuation of sound due to water and suspended-sediment. Applies all corrections to acoustic backscatter detailed in the guideline.
 }
 \examples{
-\dontrun{
 InputData <- realTimeloads::ExampleData
 Site <- InputData$Site
 ADCP <- InputData$ADCP
@@ -110,7 +109,6 @@ EIa <- InputData$Echo_Intensity
 # example code assumes backscatter is equal across beams
 EIb <- InputData$Echo_Intensity
 Output <- acoustic_backscatter_processing(Site,ADCP,Height,Sonde,EIa,EIb)
-}
 }
 \references{
 Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia.

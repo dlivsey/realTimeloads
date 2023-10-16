@@ -4,10 +4,10 @@
 \alias{butterworth_tidal_filter}
 \title{Return non-tidal signal in data after Rulh and Simpson (2005)}
 \usage{
-butterworth_tidal_filter(t, x)
+butterworth_tidal_filter(time, x)
 }
 \arguments{
-\item{t}{time for x (time, POSIXct)}
+\item{time}{time for x (time, POSIXct)}
 
 \item{x}{any quantity, for example discharge (double)}
 }
@@ -18,9 +18,9 @@ non-tidal signal in x with data affected by filter ringing removed
 Applies a Butterworth filter with a 30-hour stop period and a 40-hour pass period
 }
 \examples{
-t <- realTimeloads::ExampleData$Height$time
+time <- realTimeloads::ExampleData$Height$time
 x <- realTimeloads::ExampleData$Height$Height_m
-xf <- butterworth_tidal_filter(t,x)
+xf <- butterworth_tidal_filter(time,x)
 }
 \references{
 Ruhl, C. A., & Simpson, M. R. (2005). Computation of discharge using the index-velocity method in tidally affected areas (Vol. 2005). Denver: US Department of the Interior, US Geological Survey. https://pubs.usgs.gov/sir/2005/5004/sir20055004.pdf

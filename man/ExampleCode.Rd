@@ -13,7 +13,7 @@ list with data frames of estimated concentration and flux along with data used i
 Computes sediment load per guideline from ExampleData
 }
 \examples{
-\dontrun{
+\donttest{
 Output <- ExampleCode()
 }
 }

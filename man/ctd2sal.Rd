@@ -26,7 +26,7 @@ If specific conductivity is returned from the sonde, the temperature at which sp
 
 \examples{
 Sonde <- realTimeloads::ExampleData$Sonde
-S <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
+sal <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
 }
 \references{
 Fofonoff, N. P., & Millard Jr, R. C. (1983). Algorithms for the computation of fundamental properties of seawater.

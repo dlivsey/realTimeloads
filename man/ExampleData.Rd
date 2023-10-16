@@ -101,7 +101,7 @@ Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitorin
 ExampleData
 }
 \description{
-Synthetic dataset from modeled sediment transport and acoustic scattering detailed in Appendix B of the GUIDLINE. Following dataframes are provided in list
+Synthetic dataset from modeled sediment transport and acoustic scattering detailed in the Appendices of Livsey (in review) Following dataframes are provided in list
 }
 \section{Examples}{
 
