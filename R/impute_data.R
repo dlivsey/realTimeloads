@@ -204,7 +204,7 @@ impute_data <- function(time,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,
       df <- data.frame(time = ti,x=x_imputed,imputed=missing_data,data_gap_exceeds_one_day)
     }
 
-    if (ptrain!=1 & MC >1) {
+    if (ptrain!=1) {
       x_imputed = uncertainty$prediction$x_imputed
       x_imputed[!missing_data] <- xf[!missing_data] # ensure observed data is not overwritten by imputed estimates
 
