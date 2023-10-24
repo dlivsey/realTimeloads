@@ -1,6 +1,6 @@
 Package: realTimeloads
 Title: Analyte Flux and Load from Estimates of Concentration and Discharge
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     person(given = "Daniel",
            family = "Livsey",
