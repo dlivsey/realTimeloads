@@ -25,7 +25,7 @@ Code for computing loads from real-time estimates of concentration and discharge
 
 \code{\link{estimate_timeseries}} Estimate timeseries with uncertainty using outputs from bootstrap_regression() and timeseries of surrogate(s)
 
-\code{\link{ExampleCode}} Process acoustic backscatter from synthetic data detailed in Appendix B of the Guideline
+\code{\link{ExampleCode}} Process acoustic backscatter from synthetic data detailed in Livsey et al (in review)
 
 \code{\link{ExampleCodeSCI}} Compute load from synthetic data using "Sediment Composition Index" (SCI) after Livsey et al (2023)
 

@@ -45,7 +45,7 @@ estimate_timeseries <- function(Surrogate,Regression) {
   if (sum(grepl("BCF",names(Regression)))==1) {
     for (i in 1:iters) {
       fit$coefficient[nfit] <- as.numeric(Regression$regression_parameters[i,]) # update coefficients for each i
-      yts[i,] <- 10^(predict(fit,df)+resC[i,])*Regression$BCF[i]
+      `yts`[i,] <- 10^(predict(fit,df)+resC[i,])*Regression$BCF[i]
     }
   }
 

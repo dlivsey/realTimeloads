@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "100%"
 )
 ```
 
@@ -70,9 +71,8 @@ calibration <- realTimeloads::surrogate_to_analyte_interpolation(tx,x,
 names(calibration)[grepl('surrogate',names(calibration))] <- 'SNR_dB'
 names(calibration)[grepl('analyte',names(calibration))] <- 'SSCpt_mg_per_liter'
 
-# compute bootstrap regression parameters per https://doi.org/10.1029/2007WR006088]
+# compute bootstrap regression parameters per https://doi.org/10.1029/2007WR006088
 fun_eq <- "log10(SSCpt_mg_per_liter) ~ SNR_dB"
-# fun_eq <- "log10(SSCpt_mg_per_liter) ~ SNR_dB+I(SNR_dB^2)"
 
 Regression <- realTimeloads::bootstrap_regression(calibration,fun_eq)
 
@@ -130,7 +130,7 @@ colnames(Analyte_flux_timeseries_kt) = c('minus_two_sigma_confidence','minus_one
 
 Plot estimated versus actual timeseries
 
-```{r Plot timeseries,fig.dim = c(8,6)}
+```{r Plot timeseries,fig.dim = c(8,6),dpi=300}
 ### Compare estimate of concentration to actual ----
 
 # actual loads (kt)
@@ -179,7 +179,7 @@ Output <- list("time" = tx,"surrogate_timeseries_used_for_prediction_of_analyte"
 
 Compare estimate to actual load over period of record. Note that ratio of the estimated load computed from SSC measured at-a point (SSCpt) is \~ 1, while the ratio of the estimated load computed from SSC measured at-a point to the actual load from SSCxs is \~ 1.2. This illustrates that the load estimated from backscatter is a non-biased estimate of load from SSCpt, while loads from SSCpt overestimate the actual load by 20%.
 
-```{r Compare total loads,fig.dim = c(8,8)}
+```{r Compare total loads,fig.dim = c(8,8),dpi=300}
 ### Compare total loads in barplot ----
 # check ratios of estimated load to modeled load
 #Total_load_kt$median_confidence/sum(Qspt,na.rm=TRUE) # estimated load relative to load at Cpt
@@ -201,7 +201,7 @@ For data collected in the field, missing data may occur for numerous reasons. To
 
 Below, 50% of the processed backsactter is imputed and uncertainty on the imputation is estimated using Monte Carlo simulations. Imputation uncertainty is provided to allow propagation of uncertainty into final load estimates if desired.
 
-```{r simulate missing data and impute data,fig.dim = c(8,8)}
+```{r simulate missing data and impute data,fig.dim = c(8,8),dpi=300}
 
 ### Impute data ----
 xo <- ADCPOutput$mean_sediment_corrected_backscatter_beam_1_and_beam_2_dB
@@ -227,3 +227,11 @@ legend("topleft",legend = c("Median imputed value","Plus 2-sigma uncertainty on 
 
 
 ```
+
+## References
+
+Livsey, D. N., Downing-Kunz, M. A., Schoellhamer, D. H., & Manning, A. J. (2020). Suspended sediment flux in the San Francisco Estuary: Part I—Changes in the vertical distribution of suspended sediment and bias in estuarine sediment flux measurements. Estuaries and Coasts, 43, 1956-1972.
+
+Livsey, D. N., Turner, R. D. R., & Grace, P. R. (2023). Combining Optical and Acoustic Backscatter Measurements for Monitoring of Fine Suspended‐Sediment Concentration Under Changes in Particle Size and Density. Water Resources Research, 59(8), e2022WR033982.
+
+Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia

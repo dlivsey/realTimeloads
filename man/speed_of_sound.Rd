@@ -4,14 +4,14 @@
 \alias{speed_of_sound}
 \title{Compute speed of sound in water given salinity, temperature, and depth}
 \usage{
-speed_of_sound(S, T, D)
+speed_of_sound(sal, temp, depth)
 }
 \arguments{
-\item{S}{Salinity (PSU)}
+\item{sal}{Salinity (PSU)}
 
-\item{T}{Water temperature (degrees C)}
+\item{temp}{Water temperature (degrees C)}
 
-\item{D}{Water depth (m) or pressure (dBar)}
+\item{depth}{Water depth (m) or pressure (dBar)}
 }
 \value{
 Speed of sound in water (m/s)
@@ -22,8 +22,8 @@ Computes speed of sound in water per Del grosso (1974)
 \examples{
 InputData <- realTimeloads::ExampleData
 Sonde<- InputData$Sonde
-S <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
-c <- speed_of_sound(S,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
+sal <- ctd2sal(Sonde$Conductivity_uS_per_cm,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
+c <- speed_of_sound(sal,Sonde$Water_Temperature_degC,Sonde$Pressure_dbar)
 }
 \references{
 Del Grosso, V. A. (1974). New equation for the speed of sound in natural waters (with comparisons to other equations). The Journal of the Acoustical Society of America, 56(4), 1084-1091.

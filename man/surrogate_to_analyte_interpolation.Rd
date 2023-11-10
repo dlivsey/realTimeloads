@@ -2,7 +2,7 @@
 % Please edit documentation in R/surrogate_to_analyte_interpolation.R
 \name{surrogate_to_analyte_interpolation}
 \alias{surrogate_to_analyte_interpolation}
-\title{Interpolate timeseries x(t) onto y(t)}
+\title{Interpolate timeseries x(tx) onto y(ty)}
 \usage{
 surrogate_to_analyte_interpolation(tx, x, ty, y, threshold)
 }
@@ -21,11 +21,11 @@ surrogate_to_analyte_interpolation(tx, x, ty, y, threshold)
 a data frame with surrogate (x) interpolated onto timestep of analyte (y), interpolated values exceeding threshold are excluded from the output
 }
 \description{
-Interpolate timeseries x(t) onto y(t) with temporal threshold on interpolation
+Interpolate timeseries x(tx) onto y(ty) with temporal threshold on interpolation
 }
 \examples{
 tx <- as.POSIXct(seq(0,24*60^2,60*1), origin = "2000-01-01",tz = "Australia/Brisbane")
-x <- sin(1:length(t))
+x <- sin(1:length(tx))
 ty <- as.POSIXct(seq(0,24*60^2,60*15), origin = "2000-01-01",tz = "Australia/Brisbane")
 y <- seq(0,24*60^2,60*15)
 threshold <- 10

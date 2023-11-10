@@ -66,6 +66,7 @@ impute_data <- function(time,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,
     MC = 1
   }
 
+  Output <- NULL
   if (length(unique(diff(ti)))==1) {
     # ensure inputs do not have missing values, duplicate times, or unsorted time
     igood <- !duplicated(time)
@@ -207,7 +208,6 @@ impute_data <- function(time,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,
     if (ptrain!=1) {
       x_imputed = uncertainty$prediction$x_imputed
       x_imputed[!missing_data] <- xf[!missing_data] # ensure observed data is not overwritten by imputed estimates
-
       df <- cbind(data.frame(time = ti,x = x_imputed,imputed = missing_data,data_gap_exceeds_one_day),uncertainty$prediction[,names(uncertainty$prediction)!='x_imputed'])
     }
 
@@ -217,6 +217,7 @@ impute_data <- function(time,x,Xreg = NULL,ti = NULL,hfit = NULL,harmonic=FALSE,
     return(Output)
   }
 
+  return(Output)
 }
 
 ### functions for uncertainty estimation ----
@@ -287,6 +288,7 @@ imputation_uncertainty <- function(x,Xtree,MC,ptrain) {
       tse <- data.frame(estimates)
       colnames(tse) <- 'x_imputed'
     }
+
     # Time series with uncertainty
     if (MC>1) {
       quants <- c(0.0527, 0.1587, 0.5, 0.8414, 0.9473) # +/- 1 and 2 sigma and median (i.e., reported) estimate
@@ -302,7 +304,6 @@ imputation_uncertainty <- function(x,Xtree,MC,ptrain) {
   Output <- list('prediction' = tse,'validation_data'=df,'validation_r_squared'=validation_r_squared,'validation_rmse'= validation_rmse,'validation_mspe'=validation_mspe,'proportion_of_data_held_out_for_validation' = 1-ptrain,'number_of_Monte_Carlo_simulations_for_uncertainty_estimation' = MC)
 
   return(Output)
-
 }
 # sometimes optimization routines in mice::mice.impute.cart() can fail depending on data set, using try() above to resample if mice::mice.impute.cart() fails
 mc_model <- function(x,n_train_test,Xtree,MC,ptrain) {
