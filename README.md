@@ -22,7 +22,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-# devtools::install_github("dlivsey/realTimeloads")
+# devtools::install_github("dlivsey/realTimeloads", build_vignettes = TRUE)
 ```
 
 ## Example
