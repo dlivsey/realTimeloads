@@ -35,6 +35,8 @@ Code for computing loads from real-time estimates of concentration and discharge
 
 \code{\link{impute_data}} impute non-tidal or tidal data using ARIMA and decision tree algorithms
 
+\code{\link{impute_data_with_arima}} impute data using auto ARIMA of Hyndman et al (2023). Added uncertainty estimation using bootstrap and Monte Carlo methods
+
 \code{\link{linear_interpolation_with_time_limit}} Interpolate timeseries onto new timestep, Nan returned when nearest observation exceeds time limit specified
 
 \code{\link{near_field_correction}} Compute near-field correction for acoustic backscatter processing
