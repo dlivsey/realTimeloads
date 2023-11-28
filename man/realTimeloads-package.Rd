@@ -46,6 +46,11 @@ Code for computing loads from real-time estimates of concentration and discharge
 \code{\link{surrogate_to_analyte_interpolation}} Pair surrogate timeseries t(x) to analyte sample times t(y)
 }
 
+\section{Acknowledgements}{
+
+Funding for this research was provided by an Advance Queensland Industry Research Fellowship
+}
+
 \references{
 Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia.
 }

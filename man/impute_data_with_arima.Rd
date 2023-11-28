@@ -36,7 +36,7 @@ Q <- realTimeloads::ExampleData$Discharge$Discharge_m_cubed_per_s
 idata <- sample(1:length(xo),round(length(xo)*0.5),replace=FALSE)
 x <- rep(NA,length(xo))
 x[idata] <- xo[idata] # simulated samples
-Output <- impute_data_with_arima(time,x)
+Output <- impute_data_with_arima(time,x,Xreg = Q)
 
 }
 \references{
