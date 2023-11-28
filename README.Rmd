@@ -82,3 +82,7 @@ Livsey, D. N., Downing-Kunz, M. A., Schoellhamer, D. H., & Manning, A. J. (2020)
 Livsey, D. N., Turner, R. D. R., & Grace, P. R. (2023). Combining Optical and Acoustic Backscatter Measurements for Monitoring of Fine Suspended‐Sediment Concentration Under Changes in Particle Size and Density. Water Resources Research, 59(8), e2022WR033982.
 
 Livsey, D.N. (in review). National Industry Guidelines for hydrometric monitoring–Part 12: Application of acoustic Doppler velocity meters to measure suspended-sediment load. Bureau of Meteorology. Melbourne, Australia
+
+## Acknowledgements
+
+Funding for this research was provided by an Advance Queensland Industry Research Fellowship
